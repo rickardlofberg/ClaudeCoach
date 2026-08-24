@@ -1,51 +1,46 @@
 {
-  "max_hr": 184,
-  "resting_hr": 44,
-  "hr_data": {
-    "monitor_order_date": "2025-09-19",
-    "wrist_optical_until": "2025-09-19",
-    "reliable_source_after": "Coros HR armband (upper-arm optical)",
-    "note": "Wrist-based optical HR under-read on cold days through late 2024 → Sep 2025. Coros armband ordered 2025-09-19 (delivery uncertain) is the reliable source after. wrist_optical_until is detected from HR-vs-GAP residuals bounded by the order date (see .claude/skills/shoe-speed-vs-effort/build_dataset.py); the 2026-05-29 detection run found no flag-worthy dropout after the order date, so it resolved to the order date itself. Cf. memory project_hr_monitor_wrist_unreliable."
-  },
+  "max_hr": 183,
+  "resting_hr": 48,
   "hr_zones": [
-    {"name": "easy",          "min": 0,   "max": 140},
-    {"name": "steady",        "min": 140, "max": 150},
-    {"name": "sub-threshold", "min": 150, "max": 160},
-    {"name": "threshold",     "min": 160, "max": 170},
-    {"name": "vo2",           "min": 170, "max": 999}
+    {"name": "easy",          "min": 0,   "max": 145},
+    {"name": "steady",        "min": 145, "max": 155},
+    {"name": "sub-threshold", "min": 155, "max": 165},
+    {"name": "threshold",     "min": 165, "max": 172},
+    {"name": "vo2",           "min": 172, "max": 999}
   ],
   "pace_anchors": [
     {
-      "date": "2025-10",
-      "type": "5k_race",
-      "value": "19:50",
-      "pace_per_km": "3:58",
-      "current": false,
-      "note": "Pre-100k peak. Historical ceiling — informs the vo2 pace zone as 'where 5K race effort would land at full fitness', but not a current target. Re-test before treating it as today's fitness."
+      "date": "2026-03-28",
+      "type": "10k_race",
+      "value": "46:34",
+      "pace_per_km": "4:39",
+      "current": true,
+      "note": "Premiärmilet, avg HR 167, max 180."
     },
     {
-      "date": "2026-05-03",
-      "type": "marathon_pace_estimate",
-      "value": "4:40/km",
+      "date": "2026-04-25",
+      "type": "half_marathon_race",
+      "value": "1:40:20",
+      "pace_per_km": "4:45",
       "current": true,
-      "note": "User-stated 2026-05-03, post-Tuscany 100k recovery. Consistent with May 2 threshold reps at ~4:25/km, HR 167-169 (activity 18341982884). Anchor for current marathon and threshold pace zones."
+      "note": "Premiärhalvan, avg HR 167, max 183. Primary current fitness anchor."
     }
   ],
   "pace_zones": [
-    {"name": "recovery",      "min_per_km": "5:30", "max_per_km": null},
-    {"name": "easy",          "min_per_km": "4:55", "max_per_km": "5:25"},
-    {"name": "steady",        "min_per_km": "4:45", "max_per_km": "4:55"},
-    {"name": "marathon",      "min_per_km": "4:35", "max_per_km": "4:45"},
-    {"name": "threshold",     "min_per_km": "4:20", "max_per_km": "4:30"},
-    {"name": "interval",      "min_per_km": "4:05", "max_per_km": "4:15"},
-    {"name": "vo2",           "min_per_km": "3:55", "max_per_km": "4:05"}
+    {"name": "recovery",      "min_per_km": "6:30", "max_per_km": null},
+    {"name": "easy",          "min_per_km": "6:00", "max_per_km": "6:30"},
+    {"name": "steady",        "min_per_km": "5:30", "max_per_km": "6:00"},
+    {"name": "marathon",      "min_per_km": "5:10", "max_per_km": "5:20"},
+    {"name": "threshold",     "min_per_km": "4:50", "max_per_km": "5:05"},
+    {"name": "interval",      "min_per_km": "4:35", "max_per_km": "4:50"},
+    {"name": "vo2",           "min_per_km": "4:20", "max_per_km": "4:35"}
   ],
   "shoe_chart": {
     "window_days": 520,
     "min_distance_km": 2.0,
     "distance_bands_km": [12, 20, 35],
     "hr_correction": {
-      "enabled": true,
+      "enabled": false,
       "anchor_window_days": 120,
       "resid_drop_bpm": 10.0,
       "resid_z": -2.0,
@@ -57,12 +52,12 @@
       "rep_drop_below_best": 20,
       "rep_fast": {"pace": 4.25, "maxhr": 150},
       "rep_easy": {"pace": 5.0, "maxhr": 135},
-      "_note": "Drives the shoe-speed-vs-effort chart's low-HR dropout detection. enabled=true because this athlete's wrist-optical monitor under-read pre-Coros (see hr_data). The R1/R2 avg-HR ceilings are NOT here — they're read live from hr_zones (easy/steady ceilings, 140/150). Only the GAP cutoffs and R4 max-HR, which don't sit on a zone boundary, are explicit. Set enabled=false to remove dropout detection entirely."
+      "_note": "Drives the shoe-speed-vs-effort chart's low-HR dropout detection. Disabled by default — enable and tune if a known HR-monitor reliability issue shows up."
     },
     "hr_drift": {
       "enabled": true,
       "min_trusted": 8,
-      "_note": "Cardiac-drift HR adjustment for the shoe-speed-vs-effort chart. Longer-DURATION runs read a higher whole-run avg HR for the same pace (HR creeps up with time on feet), so without this they only compare within one distance band. When enabled, build_dataset fits a drift coefficient c (bpm/min) from the same trusted runs that anchor hr_correction — a Theil–Sen of the HR-vs-GAP residual on duration — and stores a duration-normalised avg_hr_adj per run; the chart then offers a 'HR axis: Raw / Drift-adjusted' toggle that composes with the distance dropdown. No coefficient is hardcoded: c and the reference duration are always fitted/derived. Needs at least min_trusted trusted runs to fit, else HR stays raw and the toggle is hidden. Defaults to hr_correction.enabled when omitted."
+      "_note": "Cardiac-drift HR adjustment for the shoe-speed-vs-effort chart. See build_dataset.py for details."
     },
     "intra_run_efficiency": {
       "enabled": true,
@@ -70,26 +65,8 @@
       "smooth_window_s": 90,
       "warmup_trim_km": 0.6,
       "min_points": 6,
-      "_note": "Powers Chart A (efficiency fade WITHIN a run). build_dataset walks each steady run's streams to a rolling grade-adjusted distance-per-heartbeat (m/beat) series vs distance into the run, downsampled to ~downsample_points and stored as intra_km/intra_mbeat, plus a robust Theil–Sen fade slope (intra_fade_slope, m/beat per km). smooth_window_s is the trailing window for the rolling m/beat; warmup_trim_km drops the opening distance so the HR-from-rest ramp doesn't fake a downslope; a run with fewer than min_points downsampled points gets no series. Intervals are excluded (sawtooth, not a fade line). Set enabled=false to drop the intra series and Chart A."
+      "_note": "Powers the within-run efficiency-fade chart. See build_dataset.py for details."
     }
   },
-  "gear": [
-    {"id": "g32895739", "type": "shoe", "name": "ASICS Superblast 3",        "nickname": null, "retired": false, "notes": "Bought one size up from the Megablast for a wider, more stable platform. First worn 2026-08-06 while carrying the left hip/knee complex. RACE SHOE for Berlin Mauerweglauf 2026-08-15 — changed from the Evo SL Silver in schedule/2026-08-07-weekly-review.md (the Evo SL's instability drives late-race foot fatigue; stability is protective given the back-compensation theory), and the ~90-min fit gate passed clean on the Aug 9 long run with no hotspots, arch fatigue or toe-box pressure (syncs/2026-08-09)."},
-    {"id": "g31397925", "type": "shoe", "name": "Adidas Evo SL Silver",      "nickname": "Evo SL (outdoor)", "retired": false, "notes": "Size-up ultra shoe (bought one size up for foot swell at hour 15+). Held the Berlin race-shoe role until 2026-08-07, now the EARLY-ABORT BACKUP in the km 33 drop bag behind the Superblast 3 (g32895739) — its known failure mode is instability-driven foot fatigue late in an ultra, which is why it guards against early fit problems rather than being swapped into at km 70+. Used for outdoor runs. Distinct from g24895470 'Adidas Evo SL' (treadmill)."},
-    {"id": "g31149428", "type": "shoe", "name": "ASICS Megablast",            "nickname": null, "retired": false, "notes": "Quality / medium-long shoe. Ultra-suitability for the 160 km goal race in doubt (see syncs/2026-06-06): (1) aggressive propulsion is form-dependent — great with hips up/core engaged, assist fades when relaxed, won't hold that posture for 160 km; (2) narrow toe-box — no acute pain at 21 km but latent swell risk deep in an ultra. Evo SL Silver (g31397925) is the 160 km lead candidate instead."},
-    {"id": "g29334468", "type": "shoe", "name": "Altra Torin 8",              "nickname": null, "retired": false, "notes": ""},
-    {"id": "g27836907", "type": "shoe", "name": "Altra Lone Peak",            "nickname": null, "retired": false, "notes": "trail"},
-    {"id": "g31943887", "type": "shoe", "name": "Altra Lone Peak 9+",         "nickname": null, "retired": false, "notes": "New trail primary, broken in over the Italy deload (Jun 2026). Distinct newer model from g27836907 'Altra Lone Peak'. Carried to Italy as the trail/hike shoe per schedule/2026-06-21-italy-gear-update.md; took the family hikes + hilly trail runs there."},
-    {"id": "g27772770", "type": "shoe", "name": "HOKA Tecton X3",             "nickname": null, "retired": false, "notes": "trail"},
-    {"id": "g24914475", "type": "shoe", "name": "Adidas Boston 13",           "nickname": null, "retired": false, "notes": ""},
-    {"id": "g24895470", "type": "shoe", "name": "Adidas Evo SL",              "nickname": "Evo SL (treadmill)", "retired": false, "notes": "Normal-fit pair, used for treadmill runs. NOT the size-up race candidate — that's g31397925 'Adidas Evo SL Silver' (outdoor)."},
-    {"id": "g19811829", "type": "shoe", "name": "Saucony Endorphin Speed 4",  "nickname": null, "retired": false, "notes": ""},
-    {"id": "g14961105", "type": "shoe", "name": "HOKA Carbon X3",             "nickname": null, "retired": false, "notes": ""},
-    {"id": "g13342225", "type": "shoe", "name": "Altra Torin 6",              "nickname": null, "retired": false, "notes": ""},
-    {"id": "g14432295", "type": "shoe", "name": "Altra Torin 6 (blue)",       "nickname": null, "retired": false, "notes": "Second Torin 6 pair, blue colourway"},
-    {"id": "g22988336", "type": "shoe", "name": "ASICS Metaspeed Sky Paris",  "nickname": null, "retired": false, "notes": "Carbon-plate racer"},
-    {"id": "g3898423",  "type": "shoe", "name": "Icebug Oribi 2",             "nickname": null, "retired": false, "notes": ""},
-    {"id": "g1902237",  "type": "shoe", "name": "Unbranded Okategoriserat",   "nickname": null, "retired": false, "notes": "Strava 'uncategorised' placeholder — historical default"},
-    {"id": "b4697980",  "type": "bike", "name": "Superior X-Road Team Elite", "nickname": null, "retired": false, "notes": ""}
-  ]
+  "gear": []
 }
