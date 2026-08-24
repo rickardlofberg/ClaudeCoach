@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 Season — Road to Sörmlands 100</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,400;1,9..144,500&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #0a0d0e;
+    --bg-dark-2: #11161a;
+    --grid: rgba(255,255,255,0.045);
+    --bg-light: #f5f0e6;
+    --paper: #efe8d9;
+    --ink-dark: #e8e6e0;
+    --ink-dark-dim: #9aa5a5;
+    --ink-dark-faint: #5d6868;
+    --ink-light: #1f1f1d;
+    --ink-light-dim: #7c756a;
+    --rule-light: #d8cfba;
+    --amber: #ffb547;
+    --amber-soft: rgba(255,181,71,0.18);
+    --oxblood: #7a2e2e;
+    --oxblood-dim: #9d5757;
+
+    --phase-history: #2c3539;
+    --phase-recovery: #4a7a7a;
+    --phase-reintro: #7aa570;
+    --phase-base-1: #8eb056;
+    --phase-base-2: #b4a850;
+    --phase-base-3: #c89a45;
+    --phase-italy: #5e564a;
+    --phase-specificity: #c47340;
+    --phase-taper: #b8c4cc;
+    --phase-race: #ffb547;
+    --phase-postrace: #4a6a7a;
+    --phase-sharpen: #7a9a8e;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Sora", system-ui, sans-serif;
+    color: var(--ink-light);
+    background: var(--bg-light);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ───────────────────────────────────── HEADER ───────────────────────────────────── */
+  .deck {
+    background: var(--bg-dark);
+    color: var(--ink-dark);
+    padding: 32px 48px 56px;
+    position: relative;
+    overflow: hidden;
+    background-image:
+      repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 80px),
+      radial-gradient(ellipse at top right, rgba(255,181,71,0.06), transparent 60%);
+  }
+  .deck::after {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1   0 0 0 0 1   0 0 0 0 1   0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: screen;
+    opacity: 0.7;
+  }
+  .deck > * { position: relative; z-index: 1; }
+
+  .deck .topstrip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-dark-dim);
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .deck .topstrip .signal { color: var(--amber); }
+  .deck .topstrip .signal::before {
+    content: "●";
+    margin-right: 8px;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  .deck .title-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: end;
+    margin: 36px 0 20px;
+  }
+  .deck h1 {
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--ink-dark);
+    text-transform: uppercase;
+  }
+  .deck h1 em {
+    font-style: normal;
+    color: var(--amber);
+  }
+  .deck .subtitle {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--ink-dark-dim);
+    line-height: 1.7;
+    max-width: 320px;
+    text-align: right;
+  }
+  .deck .subtitle strong { color: var(--ink-dark); font-weight: 500; }
+
+  .chips {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    margin: 28px 0 40px;
+  }
+  .chip {
+    background: var(--bg-dark);
+    padding: 14px 18px 16px;
+  }
+  .chip .lbl {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-dark-faint);
+  }
+  .chip .val {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 32px;
+    line-height: 1;
+    margin-top: 8px;
+    letter-spacing: -0.01em;
+  }
+  .chip .unit {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--ink-dark-dim);
+    margin-left: 6px;
+    letter-spacing: 0.08em;
+  }
+  .chip.accent .val { color: var(--amber); }
+
+  .panel-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-dark-faint);
+    margin: 24px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .panel-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  /* SVG containers */
+  .svg-wrap { width: 100%; }
+  .svg-wrap svg { width: 100%; height: auto; display: block; }
+
+  /* HR zone strip */
+  .hr-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-top: 18px;
+  }
+  .hr-cell {
+    background: var(--bg-dark);
+    padding: 12px 14px 14px;
+    position: relative;
+  }
+  .hr-cell::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+  }
+  .hr-cell.easy::before { background: #5a8a8a; }
+  .hr-cell.steady::before { background: #8eb056; }
+  .hr-cell.subt::before { background: #c89a45; }
+  .hr-cell.thresh::before { background: #c47340; }
+  .hr-cell.vo2::before { background: #b8424c; }
+  .hr-cell .name {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dark-dim);
+  }
+  .hr-cell .bpm {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 18px;
+    margin-top: 6px;
+  }
+  .hr-cell .bpm small {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    color: var(--ink-dark-faint);
+    margin-left: 6px;
+    font-weight: 400;
+  }
+
+  /* ─────────────────────────── TRANSITION STRIP ─────────────────────────── */
+  .transition {
+    background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-dark) 50%, var(--bg-light) 50%, var(--bg-light) 100%);
+    padding: 0 48px;
+    position: relative;
+  }
+  .transition .rule {
+    border: none;
+    border-top: 1px solid var(--amber);
+    margin: 0;
+    position: relative;
+  }
+  .transition .caption {
+    position: relative;
+    transform: translateY(-50%);
+    background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-dark) 50%, var(--bg-light) 50%, var(--bg-light) 100%);
+    display: inline-block;
+    padding: 0 18px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-left: 40px;
+  }
+
+  /* ─────────────────────────── EDITORIAL JOURNAL ─────────────────────────── */
+  .journal {
+    padding: 80px 48px 48px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .journal .preamble {
+    max-width: 640px;
+    margin: 0 auto 80px;
+    text-align: center;
+  }
+  .journal .preamble h2 {
+    font-family: "Fraunces", serif;
+    font-variation-settings: "opsz" 144;
+    font-weight: 400;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1.05;
+    margin: 0 0 18px;
+    letter-spacing: -0.015em;
+  }
+  .journal .preamble h2 em {
+    font-style: italic;
+    color: var(--oxblood);
+  }
+  .journal .preamble p {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-light-dim);
+    margin: 0;
+  }
+
+  .block-heading {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 24px;
+    margin: 64px 0 32px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule-light);
+  }
+  .block-heading h3 {
+    font-family: "Fraunces", serif;
+    font-variation-settings: "opsz" 144;
+    font-weight: 500;
+    font-size: 32px;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .block-heading h3 em { font-style: italic; color: var(--oxblood); }
+  .block-heading .meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light-dim);
+  }
+
+  .week {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 56px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--rule-light);
+    position: relative;
+  }
+  .week:last-child { border-bottom: none; }
+  .week .rail {
+    position: relative;
+  }
+  .week .wknum {
+    font-family: "Fraunces", serif;
+    font-variation-settings: "opsz" 144;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--oxblood);
+    font-size: 88px;
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+  }
+  .week .phase-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-top: 8px;
+    color: var(--ink-light-dim);
+  }
+  .week .dates {
+    font-family: "Sora", sans-serif;
+    font-size: 14px;
+    margin-top: 14px;
+    color: var(--ink-light);
+    font-weight: 500;
+  }
+  .week .vol {
+    margin-top: 4px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--ink-light-dim);
+  }
+  .week .vol strong {
+    color: var(--ink-light);
+    font-weight: 500;
+  }
+
+  .week .body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .week .intent {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-variation-settings: "opsz" 36;
+    font-size: 18px;
+    line-height: 1.45;
+    color: var(--oxblood);
+    margin: 0 0 22px;
+    border-left: 2px solid var(--oxblood);
+    padding-left: 16px;
+  }
+  .week ul.days {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .week ul.days li {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    gap: 18px;
+    padding: 9px 0;
+    border-top: 1px dotted var(--rule-light);
+    align-items: baseline;
+  }
+  .week ul.days li:first-child { border-top: none; padding-top: 4px; }
+  .week ul.days .day {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light-dim);
+    padding-top: 2px;
+  }
+  .week ul.days .day.race {
+    color: var(--oxblood);
+    font-weight: 700;
+  }
+  .week ul.days .day.done {
+    color: var(--ink-light-dim);
+    opacity: 0.85;
+  }
+  .week ul.days .day.today {
+    color: var(--amber);
+    font-weight: 700;
+  }
+  .week ul.days li.done .session { color: var(--ink-light-dim); }
+  .week ul.days li.done .session strong { color: var(--ink-light-dim); font-weight: 500; }
+  .week ul.days li.today {
+    background: linear-gradient(90deg, var(--amber-soft) 0%, transparent 80%);
+    border-left: 2px solid var(--amber);
+    padding-left: 10px;
+    margin-left: -12px;
+  }
+  .week ul.days .session {
+    font-size: 15.5px;
+    line-height: 1.5;
+  }
+  .week ul.days .session .tag {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    background: var(--paper);
+    color: var(--ink-light-dim);
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-right: 8px;
+    vertical-align: 1px;
+  }
+  .week ul.days .session .tag.race { background: var(--oxblood); color: #fff; }
+  .week ul.days .session .tag.long { background: #2c3e3e; color: #fff; }
+  .week ul.days .session .tag.qual { background: var(--amber); color: var(--ink-light); }
+  .week ul.days .session .tag.b2b { background: var(--phase-specificity); color: #fff; }
+  .week ul.days .session .tag.group { background: #5a8a8a; color: #fff; }
+  .week ul.days .session .tag.partner { background: transparent; color: #5a8a8a; border: 1px solid #5a8a8a; }
+  .week ul.days .session .tag.z1 { background: transparent; color: #5a8a8a; border: 1px solid #5a8a8a; font-weight: 600; }
+  .week ul.days .session .tag.z2 { background: transparent; color: #8eb056; border: 1px solid #8eb056; font-weight: 600; }
+  .week ul.days .session .tag.str { background: #2c3e3e; color: #d8c98a; border: 1px solid #d8c98a; }
+  .week ul.days .session .tag.str.maint { background: transparent; color: #7c756a; border: 1px dashed #b9ad8c; }
+  .week ul.days .session .tag.off { background: transparent; border: 1px solid var(--rule-light); }
+  .week ul.days .session .tag.done { background: transparent; color: var(--ink-light-dim); border: 1px dashed var(--rule-light); }
+  .week ul.days .session .tag.dev { background: transparent; color: var(--oxblood); border: 1px solid var(--oxblood); }
+  .week ul.days .session .tag.shoe { background: transparent; color: #5a7a5a; border: 1px dashed rgba(90,122,90,0.55); font-size: 9.5px; letter-spacing: 0.1em; }
+  .week ul.days .session .tag.fit { background: rgba(180,120,40,0.10); color: #b47828; border: 1px solid rgba(180,120,40,0.4); }
+  .week ul.days .session .tag.risk { background: rgba(122,46,46,0.08); color: var(--oxblood); border: 1px dashed rgba(122,46,46,0.5); }
+  .week ul.days .session strong { font-weight: 600; }
+
+  /* Block 2 narrative cards */
+  .narrative-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 32px;
+    margin-top: 12px;
+  }
+  .narr-card {
+    border: 1px solid var(--rule-light);
+    padding: 26px 28px 28px;
+    background: rgba(255,255,255,0.4);
+    position: relative;
+  }
+  .narr-card.hatched {
+    background:
+      repeating-linear-gradient(135deg, transparent 0 8px, rgba(125,109,80,0.07) 8px 9px),
+      rgba(255,255,255,0.3);
+  }
+  .narr-card .nrange {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-light-dim);
+  }
+  .narr-card h4 {
+    font-family: "Fraunces", serif;
+    font-variation-settings: "opsz" 72;
+    font-weight: 500;
+    font-size: 24px;
+    margin: 6px 0 10px;
+    letter-spacing: -0.005em;
+  }
+  .narr-card h4 em { font-style: italic; color: var(--oxblood); }
+  .narr-card p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-light);
+    margin: 0 0 10px;
+  }
+  .narr-card .keys {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--ink-light-dim);
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dotted var(--rule-light);
+  }
+  .narr-card .keys span { color: var(--ink-light); font-weight: 500; }
+
+  /* ─────────────────────────── BERLIN BANNER ─────────────────────────── */
+  .race-banner {
+    margin-top: 100px;
+    background: var(--bg-dark);
+    color: var(--ink-dark);
+    padding: 80px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .race-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 50%, rgba(255,181,71,0.20), transparent 55%),
+      radial-gradient(ellipse at 80% 80%, rgba(122,46,46,0.30), transparent 60%);
+  }
+  .race-banner .inner {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .race-banner .a-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+  .race-banner h2 {
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(44px, 6vw, 84px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin: 14px 0 14px;
+    color: var(--ink-dark);
+    letter-spacing: -0.01em;
+  }
+  .race-banner h2 em {
+    font-style: normal;
+    color: var(--amber);
+  }
+  .race-banner .race-date {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: var(--ink-dark-dim);
+    letter-spacing: 0.12em;
+  }
+  .race-banner .race-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .race-banner .race-stats .lbl {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-dark-faint);
+  }
+  .race-banner .race-stats .val {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 26px;
+    margin-top: 6px;
+    color: var(--ink-dark);
+  }
+  .race-banner .creed {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-variation-settings: "opsz" 144;
+    font-size: clamp(22px, 2.4vw, 30px);
+    line-height: 1.3;
+    color: var(--ink-dark);
+    margin: 0;
+  }
+  .race-banner .creed strong {
+    color: var(--amber);
+    font-weight: 500;
+  }
+  .race-banner .creed::before {
+    content: "\201C";
+    color: var(--amber);
+    font-size: 1.5em;
+    line-height: 0;
+    vertical-align: -0.15em;
+    margin-right: 0.05em;
+  }
+  .race-banner .creed::after {
+    content: "\201D";
+    color: var(--amber);
+    font-size: 1.5em;
+    line-height: 0;
+    vertical-align: -0.15em;
+  }
+
+  /* ─────────────────────────── POST-BERLIN ─────────────────────────── */
+  .postscript {
+    background: var(--bg-light);
+    padding: 80px 48px 64px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .postscript .ps-head {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink-light-dim);
+    margin-bottom: 12px;
+  }
+  .postscript h3 {
+    font-family: "Fraunces", serif;
+    font-variation-settings: "opsz" 144;
+    font-weight: 500;
+    font-size: 38px;
+    line-height: 1.1;
+    margin: 0 0 18px;
+    max-width: 720px;
+    letter-spacing: -0.01em;
+  }
+  .postscript h3 em { font-style: italic; color: var(--oxblood); }
+  .postscript .ps-body {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 56px;
+    margin-top: 24px;
+  }
+  .postscript .ps-body p {
+    font-size: 16px;
+    line-height: 1.65;
+    margin: 0 0 14px;
+    max-width: 560px;
+  }
+  .ps-finish {
+    border-left: 3px solid var(--oxblood);
+    padding: 8px 0 8px 22px;
+  }
+  .ps-finish .label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--oxblood);
+  }
+  .ps-finish h4 {
+    font-family: "Archivo Black", sans-serif;
+    text-transform: uppercase;
+    font-size: 28px;
+    margin: 6px 0 4px;
+    letter-spacing: -0.005em;
+  }
+  .ps-finish .when {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--ink-light-dim);
+    letter-spacing: 0.1em;
+  }
+  .ps-finish p {
+    margin-top: 12px !important;
+    font-size: 14.5px !important;
+    color: var(--ink-light-dim);
+  }
+
+  /* ─────────────────────────── FOOTER ─────────────────────────── */
+  footer {
+    background: var(--bg-dark);
+    color: var(--ink-dark-dim);
+    padding: 40px 48px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+  footer .foot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  footer .foot-grid h5 {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-dark-faint);
+    margin: 0 0 12px;
+    font-weight: 500;
+  }
+  footer code {
+    color: var(--amber);
+    font-size: 11px;
+  }
+  footer ul { padding-left: 18px; margin: 0; }
+  footer li { margin-bottom: 4px; }
+
+  /* ─────────────────────────── RESPONSIVE ─────────────────────────── */
+  @media (max-width: 920px) {
+    .deck { padding: 24px 22px 40px; }
+    .deck .title-row { grid-template-columns: 1fr; }
+    .deck .subtitle { text-align: left; max-width: none; }
+    .chips { grid-template-columns: 1fr 1fr; }
+    .hr-strip { grid-template-columns: 1fr 1fr; }
+    .journal { padding: 60px 22px 32px; }
+    .week { grid-template-columns: 1fr; gap: 18px; }
+    .week .wknum { font-size: 64px; }
+    .narrative-grid { grid-template-columns: 1fr; }
+    .race-banner { padding: 56px 22px; }
+    .race-banner .inner { grid-template-columns: 1fr; gap: 28px; }
+    .postscript { padding: 56px 22px 40px; }
+    .postscript .ps-body { grid-template-columns: 1fr; gap: 28px; }
+    .transition { padding: 0 22px; }
+    .transition .caption { margin-left: 0; }
+    footer { padding: 32px 22px; }
+    footer .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+  }
+
+  /* ─────────────────────────── MOTION ─────────────────────────── */
+  @keyframes wipe {
+    from { transform: scaleX(0); opacity: 0; }
+    to { transform: scaleX(1); opacity: 1; }
+  }
+  @keyframes rise {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .week, .narr-card { animation: rise 0.7s ease-out backwards; }
+  .week:nth-child(1) { animation-delay: 0.05s; }
+  .week:nth-child(2) { animation-delay: 0.12s; }
+  .week:nth-child(3) { animation-delay: 0.19s; }
+  .week:nth-child(4) { animation-delay: 0.26s; }
+  .week:nth-child(5) { animation-delay: 0.33s; }
+  .week:nth-child(6) { animation-delay: 0.40s; }
+  .narr-card:nth-child(1) { animation-delay: 0.15s; }
+  .narr-card:nth-child(2) { animation-delay: 0.22s; }
+  .narr-card:nth-child(3) { animation-delay: 0.29s; }
+  .narr-card:nth-child(4) { animation-delay: 0.36s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .deck .topstrip .signal::before { animation: none; }
+  }
+
+  /* ─────────────────────────── PRINT ─────────────────────────── */
+  @media print {
+    .deck { background: #fff; color: #000; padding: 16px; }
+    .deck::after { display: none; }
+    .deck h1, .chip .val, .chip .lbl, .panel-label, .topstrip { color: #000 !important; }
+    .deck .topstrip .signal::before { animation: none; color: #000; }
+    .race-banner { background: #fff; color: #000; }
+    .race-banner h2, .race-banner .creed { color: #000 !important; }
+    .race-banner h2 em, .race-banner .creed strong { color: #c47340 !important; }
+    .race-banner::before { display: none; }
+    footer { background: #fff; color: #000; }
+    .week, .narr-card { animation: none !important; }
+    body { background: #fff; }
+    .race-banner, .deck { box-shadow: none; }
+  }
+
+  /* ────────────────────────── COLLAPSIBLE WEEKS ────────────────────────── */
+  /* Each week is a <details class="week"> (keeps the .week grid + rise anim).
+     <summary class="rail"> is the click target (grid col 1); .body is col 2,
+     hidden natively when closed. Past weeks render without [open]; current +
+     future with [open]. The fold script (end of body) refines this by real date. */
+  details.week > summary {
+    display: block;
+    list-style: none;
+    cursor: pointer;
+    outline: none;
+  }
+  details.week > summary::-webkit-details-marker { display: none; }
+  details.week > summary::marker { content: ""; }
+  details.week > summary:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; }
+  .week .chev {
+    display: block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    line-height: 1;
+    color: var(--ink-light-dim);
+    transition: transform 0.2s ease;
+    margin-bottom: 8px;
+  }
+  details.week[open] > summary .chev { transform: rotate(90deg); }
+  /* collapsed = compact folded strip: slim the big wknum so past weeks don't tower */
+  details.week:not([open]) { padding: 18px 0; }
+  details.week:not([open]) .wknum { font-size: 40px; }
+  details.week:not([open]) .phase-tag { margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- DATA-INSTRUMENT HEADER                                                 -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section class="deck">
+  <div class="topstrip">
+    <span class="signal">PLAN ACTIVE &middot; TAPER WEEK 1 OF 3 &middot; DAY 1</span>
+    <span>2026 — RUNNING SEASON DASHBOARD</span>
+    <span>UPDATED 2026&middot;08&middot;24 &middot; WEEKLY REVIEW</span>
+  </div>
+
+  <div class="title-row"><h1>TAPER TO <em>SÖRMLANDS</em></h1>
+<div class="subtitle">First ultra. 100&nbsp;km trail, Sep&nbsp;12. Taper began <strong>today</strong>, 19 days out &mdash; extended from the season plan&rsquo;s 11-day taper after a 3-week catch-up push landed at the edge of sustainable.</div></div>
+
+  <div class="chips"><div class="chip">
+  <div class="lbl">Today</div>
+  <div class="val">Aug 24</div>
+</div>
+<div class="chip accent">
+  <div class="lbl">Sörmlands 100 in</div>
+  <div class="val">19<span class="unit">days</span></div>
+</div>
+<div class="chip">
+  <div class="lbl">Taper week</div>
+  <div class="val">1<span class="unit">of 3</span></div>
+</div>
+<div class="chip">
+  <div class="lbl">Peak build week, Aug 17&ndash;23</div>
+  <div class="val">74.5<span class="unit">km</span></div>
+</div></div>
+
+  <div class="panel-label">Season gantt — phase &amp; race timeline</div>
+  <div class="svg-wrap"><svg viewBox="0 0 1200 118" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Season gantt from May 12 to Sep 19, 2026">
+<defs>
+  <pattern id="hatch" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+    <rect width="6" height="6" fill="var(--phase-italy)"/>
+    <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  </pattern>
+</defs>
+<rect x="10.0" y="30" width="154.3" height="34" fill="var(--phase-sharpen)" /><rect x="182.5" y="30" width="127.1" height="34" fill="var(--phase-recovery)" /><rect x="318.6" y="30" width="54.5" height="34" fill="var(--phase-recovery)" /><rect x="382.2" y="30" width="81.7" height="34" fill="var(--phase-reintro)" /><rect x="472.9" y="30" width="245.1" height="34" fill="url(#hatch)" /><rect x="727.1" y="30" width="27.2" height="34" fill="var(--phase-reintro)" /><rect x="763.4" y="30" width="54.5" height="34" fill="var(--phase-base-1)" /><rect x="826.9" y="30" width="54.5" height="34" fill="var(--phase-base-2)" /><rect x="890.5" y="30" width="54.5" height="34" fill="var(--phase-specificity)" /><rect x="954.0" y="30" width="54.5" height="34" fill="var(--phase-recovery)" /><rect x="1017.5" y="30" width="54.5" height="34" fill="var(--phase-taper)" /><rect x="1081.1" y="30" width="45.4" height="34" fill="#d8dde0" /><rect x="1135.5" y="30" width="54.5" height="34" fill="var(--phase-postrace)" />
+<rect x="1081.1" y="28" width="45.4" height="38" fill="none" stroke="var(--amber)" stroke-width="1.5"/>
+<g>
+  <line x1="173.4" y1="16" x2="173.4" y2="68" stroke="#8eb056" stroke-width="1.5" />
+  <circle cx="173.4" cy="16" r="4" fill="#8eb056"/>
+</g><g>
+  <line x1="309.5" y1="16" x2="309.5" y2="68" stroke="var(--ink-dark-dim)" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <circle cx="309.5" cy="16" r="4" fill="var(--ink-dark-dim)"/>
+</g><g>
+  <line x1="1126.5" y1="16" x2="1126.5" y2="68" stroke="var(--amber)" stroke-width="1.5" />
+  <circle cx="1126.5" cy="16" r="6" fill="var(--amber)"/>
+</g>
+<line x1="954.0" y1="10" x2="954.0" y2="86" stroke="var(--amber)" stroke-width="1.5"/>
+<text x="954.0" y="6" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5" fill="var(--amber)">TODAY</text>
+<text x="10.0" y="102" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2" fill="var(--ink-dark-dim)">MAY</text>
+<text x="191.5" y="102" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2" fill="var(--ink-dark-dim)">JUN</text>
+<text x="463.8" y="102" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2" fill="var(--ink-dark-dim)">JUL</text>
+<text x="745.2" y="102" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2" fill="var(--ink-dark-dim)">AUG</text>
+<text x="1026.6" y="102" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2" fill="var(--ink-dark-dim)">SEP</text>
+<text x="173.4" y="82" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" fill="#9ec27a">STHLM MARATHON &middot; B</text>
+<text x="309.5" y="82" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" fill="var(--ink-dark-dim)">DXT &middot; C</text>
+<text x="1126.5" y="-6" text-anchor="middle" font-family="Archivo Black, sans-serif" font-size="10" fill="var(--amber)">SÖRMLANDS 100 &middot; A</text>
+</svg></div>
+
+  <div class="panel-label">Weekly volume &mdash; ultra-build peak &amp; taper drawdown</div>
+  <div class="svg-wrap"><svg viewBox="0 0 1200 196" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Weekly training volume, Aug 3 through Sep 12">
+<line x1="30" y1="160.0" x2="1170" y2="160.0" stroke="var(--grid)" stroke-width="1"/><text x="20" y="163.0" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--ink-dark-faint)">0</text><line x1="30" y1="125.0" x2="1170" y2="125.0" stroke="var(--grid)" stroke-width="1"/><text x="20" y="128.0" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--ink-dark-faint)">20</text><line x1="30" y1="90.0" x2="1170" y2="90.0" stroke="var(--grid)" stroke-width="1"/><text x="20" y="93.0" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--ink-dark-faint)">40</text><line x1="30" y1="55.0" x2="1170" y2="55.0" stroke="var(--grid)" stroke-width="1"/><text x="20" y="58.0" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--ink-dark-faint)">60</text><line x1="30" y1="20.0" x2="1170" y2="20.0" stroke="var(--grid)" stroke-width="1"/><text x="20" y="23.0" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--ink-dark-faint)">80</text>
+<line x1="30" y1="160" x2="1170" y2="160" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+<rect x="81.0" y="49.2" width="108" height="110.8" fill="var(--phase-specificity)" opacity="1" /><text x="135.0" y="41.2" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="var(--ink-dark)">63.3</text><text x="135.0" y="182" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="0.5" fill="var(--ink-dark-dim)">AUG 3–9</text><rect x="271.0" y="54.5" width="108" height="105.5" fill="var(--phase-specificity)" opacity="1" /><text x="325.0" y="46.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="var(--ink-dark)">60.3</text><text x="325.0" y="182" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="0.5" fill="var(--ink-dark-dim)">AUG 10–16</text><rect x="461.0" y="29.6" width="108" height="130.4" fill="var(--phase-specificity)" opacity="1" /><text x="515.0" y="21.6" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="var(--ink-dark)">74.5</text><text x="515.0" y="182" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="0.5" fill="var(--ink-dark-dim)">AUG 17–23</text><rect x="651.0" y="104.0" width="108" height="56.0" fill="var(--phase-taper)" opacity="0.85" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3,2"/><text x="705.0" y="96.0" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="var(--ink-dark)">32</text><text x="705.0" y="182" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="0.5" fill="var(--amber)">AUG 24–30</text><rect x="841.0" y="72.5" width="108" height="87.5" fill="var(--phase-taper)" opacity="0.85" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3,2"/><text x="895.0" y="64.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="var(--ink-dark)">50</text><text x="895.0" y="182" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="0.5" fill="var(--ink-dark-dim)">AUG 31–SEP 6</text><rect x="1031.0" y="128.5" width="108" height="31.5" fill="var(--phase-taper)" opacity="0.85" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3,2"/><text x="1085.0" y="120.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="var(--ink-dark)">18</text><text x="1085.0" y="182" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="0.5" fill="var(--ink-dark-dim)">SEP 7–12</text>
+</svg></div>
+
+  <div class="panel-label">HR zones &mdash; max HR 183 &middot; resting 48 (estimated, never recalibrated)</div>
+  <div class="hr-strip"><div class="hr-cell easy"><div class="name">Easy</div><div class="bpm">&lt;145 <small>bpm</small></div></div>
+<div class="hr-cell steady"><div class="name">Steady</div><div class="bpm">145&ndash;155 <small>bpm</small></div></div>
+<div class="hr-cell subt"><div class="name">Sub-threshold</div><div class="bpm">155&ndash;165 <small>bpm</small></div></div>
+<div class="hr-cell thresh"><div class="name">Threshold</div><div class="bpm">165&ndash;172 <small>bpm</small></div></div>
+<div class="hr-cell vo2"><div class="name">VO2</div><div class="bpm">172+ <small>bpm</small></div></div></div>
+</section>
+
+<!-- transition -->
+<div class="transition">
+  <hr class="rule">
+  <span class="caption">—— SEASON JOURNAL &middot; MAY 12 → SEP 12 ——</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- EDITORIAL TRAINING JOURNAL                                              -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<main class="journal">
+
+  <div class="preamble"><h2>Nineteen days between <em>now</em> and the start line.</h2>
+<p>The season built toward one goal: finish Sörmlands&nbsp;100, a first ultra, on Sep&nbsp;12. It didn&rsquo;t arrive on the original script &mdash; a marathon ran hotter than planned, DXT turned out to be the hardest race of the year, July went fully passive, and the ultra build was compressed into three weeks that were pushed past sustainable to make up lost time. The taper starting today banks the fitness already built &mdash; including a 44&nbsp;km controlled ultra effort with real HR discipline &mdash; rather than risking it for one more nominal build week.</p></div>
+
+    <div class="block-heading"><h3>Block 1 &mdash; <em>Marathon</em> Sharpener</h3><div class="meta">May 12 &ndash; Jun 14 &middot; complete</div></div>
+
+    <details class="week" data-end="2026-05-17">
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">01</div>
+        <div class="phase-tag">MARATHON TAPER &middot; WK 1</div>
+        <div class="dates">May 12 &ndash; May 17</div>
+        <div class="vol">43&ndash;47 km actual (~40 km target)</div>
+      </summary>
+      <div class="body">
+        <p class="intent">The work is done. Taper means don&rsquo;t dig a new hole &mdash; arrive fresh, not fitter.</p>
+        <ul class="days">
+          <li class="done"><div class="day">TUE MAY 12</div><div class="session"><span class="tag done">DONE</span><span class="tag qual">QUAL</span><span class="tag group">GROUP</span>7 km Kundo w/ 4×4 &mdash; avg HR 128, very controlled.</div></li>
+          <li class="done"><div class="day">WED MAY 13</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li class="done"><div class="day">THU MAY 14</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span>10&ndash;12 km easy.</div></li>
+          <li class="done"><div class="day">FRI MAY 15</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li class="done"><div class="day">SAT MAY 16</div><div class="session"><span class="tag done">DONE</span><span class="tag long">LONG</span>18&ndash;20 km easy &mdash; last big pre-marathon long run.</div></li>
+          <li class="done"><div class="day">SUN MAY 17</div><div class="session"><span class="tag done">DONE</span><span class="tag dev">DEVIATION</span>21.5 km, not the planned 8 km flush &mdash; went out too hard, held marathon pace in the second half. Avg HR 143.</div></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="week" data-end="2026-05-24">
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">02</div>
+        <div class="phase-tag">MARATHON TAPER &middot; WK 2</div>
+        <div class="dates">May 18 &ndash; May 24</div>
+        <div class="vol">28.6 km actual (33 km target)</div>
+      </summary>
+      <div class="body">
+        <p class="intent">Legs should be getting antsy by the weekend.</p>
+        <ul class="days">
+          <li class="done"><div class="day">MON MAY 18</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li class="done"><div class="day">TUE MAY 19</div><div class="session"><span class="tag done">DONE</span><span class="tag dev">DEVIATION</span><span class="tag group">GROUP</span>Kundo ran 4×4 intervals, not the planned strides &mdash; max HR 170.</div></li>
+          <li class="done"><div class="day">WED MAY 20</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li class="done"><div class="day">THU MAY 21</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span>8 km easy.</div></li>
+          <li class="done"><div class="day">FRI MAY 22</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li class="done"><div class="day">SAT MAY 23</div><div class="session"><span class="tag off">OFF</span>Planned long run skipped.</div></li>
+          <li class="done"><div class="day">SUN MAY 24</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span>10.2 km easy &mdash; absorbed Saturday&rsquo;s missed volume.</div></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="week" data-end="2026-05-30">
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">03</div>
+        <div class="phase-tag">RACE WEEK</div>
+        <div class="dates">May 25 &ndash; May 30</div>
+        <div class="vol">taper + Stockholm Marathon</div>
+      </summary>
+      <div class="body">
+        <p class="intent">The approach to the start line was right &mdash; quiet, controlled, no last-minute heroics.</p>
+        <ul class="days">
+          <li class="done"><div class="day">MON MAY 25</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li class="done"><div class="day">TUE MAY 26</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span><span class="tag group">GROUP</span>Kundo, genuinely easy &mdash; 5.7 km, avg HR 120.</div></li>
+          <li class="done"><div class="day">WED MAY 27</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li class="done"><div class="day">THU MAY 28</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span>6.2 km shakeout, HR 135.</div></li>
+          <li class="done"><div class="day">FRI MAY 29</div><div class="session"><span class="tag off">OFF</span>Rest, gear check.</div></li>
+          <li class="done"><div class="day race done">SAT MAY 30</div><div class="session"><span class="tag race">RACE</span><span class="tag done">DONE</span><strong>Stockholm Marathon</strong> &mdash; 3:50:27 (GPS 43.1 km), avg HR 163.9, max 176. First marathon; heat + tired legs in the back third, not a pacing error.</div></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="week" data-end="2026-06-07">
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">04</div>
+        <div class="phase-tag">POST-MARATHON RECOVERY</div>
+        <div class="dates">May 31 &ndash; Jun 7</div>
+        <div class="vol">33.4 km actual (35&ndash;42 km target)</div>
+      </summary>
+      <div class="body">
+        <p class="intent">24 hours of nothing, then a phased return keyed off morning HR.</p>
+        <ul class="days">
+          <li class="done"><div class="day">SUN MAY 31</div><div class="session"><span class="tag off">OFF</span>Rest only.</div></li>
+          <li class="done"><div class="day">MON JUN 1</div><div class="session"><span class="tag off">OFF</span>Walk only, no running.</div></li>
+          <li class="done"><div class="day">TUE JUN 2</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span><span class="tag group">GROUP</span>Kundo, easy &mdash; 5.6 km, avg HR 127.</div></li>
+          <li class="done"><div class="day">WED JUN 3</div><div class="session"><span class="tag off">OFF</span>Planned first run back &mdash; skipped.</div></li>
+          <li class="done"><div class="day">THU JUN 4</div><div class="session"><span class="tag off">OFF</span>Skipped.</div></li>
+          <li class="done"><div class="day">FRI JUN 5</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span>10 km, avg HR 139 &mdash; actual first run back.</div></li>
+          <li class="done"><div class="day">SAT JUN 6</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li class="done"><div class="day">SUN JUN 7</div><div class="session"><span class="tag done">DONE</span><span class="tag long">LONG</span><span class="tag shoe">SHOE</span>17.8 km long run w/ swim break, avg HR 137. Shoe-related tendon sensitivity noted.</div></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="week" data-end="2026-06-14">
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">05</div>
+        <div class="phase-tag">DXT PREP + RACE</div>
+        <div class="dates">Jun 8 &ndash; Jun 14</div>
+        <div class="vol">~15 km + DXT 21.6 km</div>
+      </summary>
+      <div class="body">
+        <p class="intent">13 days post-marathon in the Dolomites &mdash; a mountain day, not a performance test. Turned out harder than billed.</p>
+        <ul class="days">
+          <li class="done"><div class="day">MON JUN 8</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li class="done"><div class="day">TUE JUN 9</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span><span class="tag group">GROUP</span>Kundo, easy &mdash; 5.6 km, avg HR 131, max 147.</div></li>
+          <li class="done"><div class="day">WED JUN 10</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li class="done"><div class="day">THU JUN 11</div><div class="session"><span class="tag off">OFF</span>Shakeout skipped.</div></li>
+          <li class="done"><div class="day">FRI JUN 12</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li class="done"><div class="day race done">SAT JUN 14</div><div class="session"><span class="tag race">RACE</span><span class="tag done">DONE</span><span class="tag risk">FLAG</span><strong>DXT &mdash; Dolomite Extreme Trail</strong>, 21.6 km, 1140 m vert. Avg HR 150, max 174, suffer 347 &mdash; called the hardest race of 2026 so far.</div></li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="block-heading"><h3>Block 2 &mdash; <em>Reset</em> &amp; Rebuild</h3><div class="meta">Jun 15 &ndash; Aug 2 &middot; complete</div></div>
+
+    <details class="week" data-end="2026-06-21">
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">06</div>
+        <div class="phase-tag">LIGHT RECOVERY</div>
+        <div class="dates">Jun 15 &ndash; Jun 21</div>
+        <div class="vol">recovery &mdash; no fixed target</div>
+      </summary>
+      <div class="body">
+        <p class="intent">Quads still burning three days out &mdash; real recovery, not a box-checking week.</p>
+        <ul class="days">
+          <li class="done"><div class="day">WED JUN 18</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span><span class="tag risk">FLAG</span>6&ndash;8 km easy &mdash; first run post-DXT. Ran a touch hot (~150&ndash;157) against the &lt;135 target, part of an unresolved pattern through the summer.</div></li>
+          <li class="done"><div class="day">FRI JUN 20</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span>8&ndash;10 km easy.</div></li>
+          <li class="done"><div class="day">SUN JUN 21</div><div class="session"><span class="tag off">OFF</span>No session logged.</div></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="week" data-end="2026-06-29">
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">07</div>
+        <div class="phase-tag">REBUILD</div>
+        <div class="dates">Jun 22 &ndash; Jun 29</div>
+        <div class="vol">within 42&ndash;50 km target</div>
+      </summary>
+      <div class="body">
+        <p class="intent">The June 29 long run is the canary for the whole rest of the build.</p>
+        <ul class="days">
+          <li class="done"><div class="day">TUE JUN 23</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span><span class="tag group">GROUP</span><span class="tag risk">FLAG</span>Kundo easy, 6&ndash;8 km &mdash; again ran a little hot.</div></li>
+          <li class="done"><div class="day">WED JUN 25</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span>10&ndash;12 km easy.</div></li>
+          <li class="done"><div class="day">FRI JUN 27</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span>10&ndash;12 km easy.</div></li>
+          <li class="done"><div class="day">SUN JUN 29</div><div class="session"><span class="tag done">DONE</span><span class="tag long">LONG</span><strong>27 km</strong>, avg HR 133, no drift &mdash; canary passed clean.</div></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="week" data-end="2026-08-02">
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">08</div>
+        <div class="phase-tag">JULY DISRUPTION</div>
+        <div class="dates">Jun 30 &ndash; Aug 2</div>
+        <div class="vol">minimal &mdash; 3 short runs + a blank week</div>
+      </summary>
+      <div class="body">
+        <p class="intent">The season plan&rsquo;s own contingency for a fully passive July, playing out almost exactly.</p>
+        <ul class="days">
+          <li class="done"><div class="day">FRI JUL 3</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span>14.7 km, avg HR 145 &mdash; last run before the disruption proper.</div></li>
+          <li class="done"><div class="day">MON JUL 6</div><div class="session"><span class="tag done">DONE</span><span class="tag long">LONG</span>31 km easy long run, avg HR 128 &mdash; no drift, last big session before travel.</div></li>
+          <li class="done"><div class="day">JUL 10 / 19 / 29</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span><span class="tag risk">FLAG</span>Three short runs across three weeks &mdash; each read hot, avg HR 154&ndash;157 against an easy target.</div></li>
+          <li class="done"><div class="day">JUL 20&ndash;26</div><div class="session"><span class="tag off">OFF</span><span class="tag risk">FLAG</span>Full week off &mdash; illness, zero running, inside the flagged disruption window.</div></li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="block-heading"><h3>Block 3 &mdash; <em>Ultra</em> Build</h3><div class="meta">Aug 3 &ndash; Aug 23 &middot; complete, ran past plan</div></div>
+
+    <details class="week" data-end="2026-08-09">
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">09</div>
+        <div class="phase-tag">ULTRA BUILD &middot; WK 1</div>
+        <div class="dates">Aug 3 &ndash; Aug 9</div>
+        <div class="vol">63.3 km actual (50 km / 28 km long planned)</div>
+      </summary>
+      <div class="body">
+        <p class="intent">Build restarts 12 days late. Stop trying to make up the calendar &mdash; make up the fitness.</p>
+        <ul class="days">
+          <li class="done"><div class="day">SUN AUG 3</div><div class="session"><span class="tag done">DONE</span><span class="tag long">LONG</span>Long run &mdash; the ultra build actually restarts.</div></li>
+          <li class="done"><div class="day">WED AUG 6</div><div class="session"><span class="tag done">DONE</span><span class="tag qual">QUAL</span>Tanto intervals &mdash; first quality session since the marathon block.</div></li>
+          <li class="done"><div class="day">SUN AUG 9</div><div class="session"><span class="tag done">DONE</span><span class="tag long">LONG</span>22 km long run.</div></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="week" data-end="2026-08-16">
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">10</div>
+        <div class="phase-tag">ULTRA BUILD &middot; WK 2</div>
+        <div class="dates">Aug 10 &ndash; Aug 16</div>
+        <div class="vol">60.3 km actual (58 km / B2B 28+20 planned)</div>
+      </summary>
+      <div class="body">
+        <p class="intent">No designed back-to-back weekend &mdash; isolated long runs instead, but volume ran ahead of plan.</p>
+        <ul class="days">
+          <li class="done"><div class="day">TUE AUG 11</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span>6 km lunch run, avg HR 144 &mdash; borderline easy/steady.</div></li>
+          <li class="done"><div class="day">WED AUG 12</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span>10 km evening run, avg HR 130 &mdash; genuinely easy.</div></li>
+          <li class="done"><div class="day">SAT AUG 15</div><div class="session"><span class="tag race">RACE</span><span class="tag done">DONE</span><span class="tag long">LONG</span><strong>Ultravasan 45</strong> &mdash; 44 km ultra run as a controlled long effort. Official 5:23:25. Suffer 572, biggest single session on record. HR stayed flat while pace faded ~15s/km &mdash; muscular/fueling fatigue, not cardiovascular; a good signal for Sörmlands pacing.</div></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="week" data-end="2026-08-23">
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">11</div>
+        <div class="phase-tag">ULTRA BUILD &middot; WK 3 &middot; PEAK</div>
+        <div class="dates">Aug 17 &ndash; Aug 23</div>
+        <div class="vol">74.5 km actual (65 km / B2B 42+28 planned)</div>
+      </summary>
+      <div class="body">
+        <p class="intent">Two races plus an unplanned marathon &mdash; the week that pushed past sustainable.</p>
+        <ul class="days">
+          <li class="done"><div class="day">MON AUG 18</div><div class="session"><span class="tag done">DONE</span><span class="tag z1">Z1</span>6.4 km easy shakeout, avg HR 124 &mdash; sensible recovery pace 3 days after Ultravasan 45.</div></li>
+          <li class="done"><div class="day">WED AUG 19</div><div class="session"><span class="tag race">RACE</span><span class="tag done">DONE</span><span class="tag risk">FLAG</span><strong>Convinistraffen</strong> &mdash; 5 km hard Kundo effort, avg HR 163, max 179, negative split. A threshold/VO2 effort just 4 days after a 44 km ultra.</div></li>
+          <li class="done"><div class="day">SAT AUG 22</div><div class="session"><span class="tag race">RACE</span><span class="tag done">DONE</span><span class="tag risk">FLAG</span><strong>Stockholm Trail 21K</strong> &mdash; technical trail race, 2:55:22, avg HR 152, suffer 352. &ldquo;Much harder than I was prepared for.&rdquo; 7 days after Ultravasan 45.</div></li>
+          <li class="done"><div class="day">SUN AUG 23</div><div class="session"><span class="tag done">DONE</span><span class="tag risk">FLAG</span><span class="tag long">LONG</span>Unplanned <strong>42 km</strong> &mdash; intended ~25 km, got lost. Raw HR reads easy (91% &lt;145 bpm) but genuine aerobic decoupling (130&rarr;139 bpm at flat pace) marks it as a real fatigue event. Athlete&rsquo;s own words: &ldquo;kind of dumb ahead of Sörmlands 100.&rdquo;</div></li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="block-heading"><h3>Block 4 &mdash; <em>Taper</em> to Sörmlands</h3><div class="meta">Aug 24 &ndash; Sep 12 &middot; current</div></div>
+
+    <details class="week" data-end="2026-08-30" open>
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">12</div>
+        <div class="phase-tag">TAPER &middot; RECOVERY WEEK</div>
+        <div class="dates">Aug 24 &ndash; Aug 30</div>
+        <div class="vol">30&ndash;35 km target &mdash; deliberate recovery week</div>
+      </summary>
+      <div class="body">
+        <p class="intent">Real recovery, not just reduced training &mdash; the Aug 15&ndash;23 cluster needs to clear before the taper proper begins.</p>
+        <ul class="days">
+          <li class="today"><div class="day today">MON AUG 24</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li><div class="day">TUE AUG 25</div><div class="session"><span class="tag group">GROUP</span>Kundo &mdash; easy only, skip intervals, or rest outright if still sore.</div></li>
+          <li><div class="day">WED AUG 26</div><div class="session"><span class="tag off">OFF</span>Rest, or a very easy 5 km shakeout only if legs feel ready.</div></li>
+          <li><div class="day">THU AUG 27</div><div class="session"><span class="tag z1">Z1</span>6&ndash;8 km easy, HR &lt;145 (or by feel).</div></li>
+          <li><div class="day">FRI AUG 28</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li><div class="day">SAT AUG 29</div><div class="session"><span class="tag z1">Z1</span>8&ndash;10 km, conversational.</div></li>
+          <li><div class="day">SUN AUG 30</div><div class="session"><span class="tag z1">Z1</span>12&ndash;15 km relaxed &mdash; no target pace, no HR-chasing.</div></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="week" data-end="2026-09-06" open>
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">13</div>
+        <div class="phase-tag">TAPER &middot; PROPER</div>
+        <div class="dates">Aug 31 &ndash; Sep 6</div>
+        <div class="vol">45&ndash;55 km target</div>
+      </summary>
+      <div class="body">
+        <p class="intent">Reduced volume, preserved light intensity via strides, no new stimulus.</p>
+        <ul class="days">
+          <li><div class="day">MON AUG 31</div><div class="session"><span class="tag z1">Z1</span>8 km easy.</div></li>
+          <li><div class="day">TUE SEP 1</div><div class="session"><span class="tag group">GROUP</span><span class="tag str">STRIDES</span>Kundo easy + optional 4×20s strides &mdash; no hard intervals.</div></li>
+          <li><div class="day">WED SEP 2</div><div class="session"><span class="tag z1">Z1</span>8&ndash;10 km easy.</div></li>
+          <li><div class="day">THU SEP 3</div><div class="session"><span class="tag off">OFF</span>Rest.</div></li>
+          <li><div class="day">FRI SEP 4</div><div class="session"><span class="tag z1">Z1</span><span class="tag str">STRIDES</span>6&ndash;8 km + 4&ndash;6×20s strides.</div></li>
+          <li><div class="day">SAT SEP 5</div><div class="session"><span class="tag off">OFF</span>Rest or short shakeout.</div></li>
+          <li><div class="day">SUN SEP 6</div><div class="session"><span class="tag long">LONG</span>16&ndash;20 km easy-moderate, HR &lt;145 &mdash; last real long-ish stimulus; also the last nutrition-rehearsal chance.</div></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="week" data-end="2026-09-12" open>
+      <summary class="rail">
+        <span class="chev">▸</span>
+        <div class="wknum">14</div>
+        <div class="phase-tag">RACE WEEK</div>
+        <div class="dates">Sep 7 &ndash; Sep 12</div>
+        <div class="vol">15&ndash;20 km target + the race</div>
+      </summary>
+      <div class="body">
+        <p class="intent">First ultra. 100 km trail. Finish goal.</p>
+        <ul class="days">
+          <li><div class="day">MON SEP 7</div><div class="session"><span class="tag z1">Z1</span>6 km easy.</div></li>
+          <li><div class="day">TUE SEP 8</div><div class="session"><span class="tag group">GROUP</span>Kundo, easy and short, or rest.</div></li>
+          <li><div class="day">WED SEP 9</div><div class="session"><span class="tag off">OFF</span>Rest, or 20&ndash;30 min very easy.</div></li>
+          <li><div class="day">THU SEP 10</div><div class="session"><span class="tag str">STRIDES</span>20 min easy + 3&ndash;4×20s strides. Gear check.</div></li>
+          <li><div class="day">FRI SEP 11</div><div class="session"><span class="tag off">OFF</span>Rest. Drop bags, nutrition, early night.</div></li>
+          <li><div class="day race">SAT SEP 12</div><div class="session"><span class="tag race">RACE</span><strong>Sörmlands 100</strong> &mdash; race day. First ultra, ~100 km trail. Finish goal.</div></li>
+        </ul>
+      </div>
+    </details>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- BERLIN BANNER                                                            -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section class="race-banner">
+  <div class="inner"><div>
+  <div class="a-tag">A-RACE &middot; SEP 12, 2026</div>
+  <h2>SÖRMLANDS <em>100</em></h2>
+  <div class="race-date">SATURDAY &middot; SEPTEMBER 12 &middot; ~100 KM TRAIL</div>
+  <div class="race-stats">
+    <div><div class="lbl">Priority</div><div class="val">A &middot; Finish</div></div>
+    <div><div class="lbl">Experience</div><div class="val">First ultra</div></div>
+    <div><div class="lbl">Taper length</div><div class="val">19 days</div></div>
+    <div><div class="lbl">Rehearsal data</div><div class="val">Ultravasan 45</div></div>
+  </div>
+</div>
+<div>
+  <p class="creed">Sörmlands 100 is finished on aerobic engine and legs, <strong>not VO2 ceiling</strong> &mdash; the long easy miles are the training.</p>
+</div></div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- POSTSCRIPT                                                               -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section class="postscript"><div class="ps-head">AFTER THE FINISH LINE</div>
+<h3>The first <em>hundred</em>. Then decide.</h3>
+<div class="ps-body">
+  <div>
+    <p>Nothing is scheduled after Sörmlands. The season plan says it plainly: decide after the race how the body feels and what Q4 looks like. A first 100&nbsp;km finish &mdash; however it goes &mdash; earns real recovery before any new target gets named.</p>
+    <p>Two open items carry into race week regardless of outcome: a short Sörmlands race-day plan (aid stations, gear, pacing off the Ultravasan 45 data) was flagged in the season plan for mid-August and never formally written &mdash; the two hard races and the Aug 23 long run likely rehearsed fueling anyway, but nothing is on paper. And resting HR is still the May estimate of 48 bpm, never recalibrated against real morning readings.</p>
+  </div>
+  <div class="ps-finish">
+    <div class="label">MILESTONE</div>
+    <h4>FIRST ULTRA</h4>
+    <div class="when">SEP 12, 2026</div>
+    <p>100 km trail. If the extended taper does its job, the fitness banked across a marathon, a mountain race, and a 44&nbsp;km controlled ultra effort carries straight through to the finish.</p>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                                   -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="foot-grid"><div>
+  <h5>Source files</h5>
+  <ul>
+    <li><code>analyses/season-plan/2026-05-12-season-plan.md</code></li>
+    <li><code>analyses/schedule/2026-05-12-stockholm-marathon-block.md</code></li>
+    <li><code>analyses/schedule/2026-05-31-weekly-review.md</code></li>
+    <li><code>analyses/schedule/2026-06-17-weekly-review.md</code></li>
+    <li><code>analyses/schedule/2026-08-24-weekly-review.md</code> &mdash; triggering analysis</li>
+    <li><code>config/training.json</code></li>
+  </ul>
+</div>
+<div>
+  <h5>About this page</h5>
+  <ul>
+    <li>Generated by the <code>update-plan-visualization</code> skill.</li>
+    <li>Updated 2026-08-24.</li>
+    <li>History: <code>viz/index.html</code></li>
+    <li>A stale page is worse than none &mdash; regenerate on every forward-plan change.</li>
+  </ul>
+</div></div>
+</footer>
+
+
+<script>
+  /* Progressive enhancement: fold past weeks by the real date, so the fold
+     stays current between regenerations. Native <details> still handles the
+     click toggle; the baked open/closed state is the no-JS fallback. Scope is
+     limited to the week fold — the today/done markers and gantt rule stay baked. */
+  (function () {
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    document.querySelectorAll('details.week[data-end]').forEach(function (d) {
+      var end = new Date(d.getAttribute('data-end') + 'T00:00:00');
+      if (!isNaN(end.getTime())) d.open = end >= today;
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan history &mdash; 2026 Season</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,400;1,9..144,500&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #0a0d0e;
+    --bg-light: #f5f0e6;
+    --ink-dark: #e8e6e0;
+    --ink-dark-dim: #9aa5a5;
+    --ink-dark-faint: #5d6868;
+    --ink-light: #1f1f1d;
+    --ink-light-dim: #7c756a;
+    --rule-light: #d8cfba;
+    --amber: #ffb547;
+    --oxblood: #7a2e2e;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Sora", system-ui, sans-serif;
+    color: var(--ink-light);
+    background: var(--bg-light);
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    background: var(--bg-dark);
+    color: var(--ink-dark);
+    padding: 48px 48px 32px;
+  }
+  header .head-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  header h1 {
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    margin: 0;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+  header .subtitle {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--ink-dark-dim);
+    margin-top: 10px;
+    letter-spacing: 0.04em;
+  }
+  header .today {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--ink-dark-dim);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  header .caption-rule {
+    margin-top: 28px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 8px 48px 40px;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 160px 1fr 220px;
+    gap: 32px;
+    align-items: start;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule-light);
+  }
+  .row:last-child { border-bottom: none; }
+  .fdate {
+    font-family: "Fraunces", serif;
+    font-variation-settings: "opsz" 72;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 26px;
+    color: var(--oxblood);
+  }
+  .tag {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light-dim);
+    background: rgba(122,46,46,0.06);
+    border: 1px solid var(--rule-light);
+    padding: 3px 9px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+  }
+  .tag.current {
+    color: #fff;
+    background: var(--oxblood);
+    border-color: var(--oxblood);
+  }
+  .summary {
+    font-size: 15.5px;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 640px;
+  }
+  .col-link {
+    text-align: right;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+  }
+  .col-link a {
+    color: var(--ink-light-dim);
+    text-decoration: none;
+  }
+  .col-link a:hover { color: var(--amber); }
+
+  footer {
+    background: var(--bg-dark);
+    color: var(--ink-dark-dim);
+    padding: 32px 48px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+  footer code { color: var(--amber); }
+
+  @media (max-width: 920px) {
+    header { padding: 32px 22px 24px; }
+    main { padding: 8px 22px 32px; }
+    .row { grid-template-columns: 1fr; gap: 10px; }
+    .col-link { text-align: left; }
+    footer { padding: 24px 22px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-row">
+    <div>
+      <h1>Plan history</h1>
+      <div class="subtitle">Versioned snapshots of viz/plan.html &mdash; newest first.</div>
+    </div>
+    <div class="today">2026&middot;08&middot;24</div>
+  </div>
+  <div class="caption-rule">—— 2026 SEASON &middot; ROAD TO SÖRMLANDS 100 ——</div>
+</header>
+<main>
+      <div class="row">
+        <div class="col-date"><span class="fdate">2026-08-24</span></div>
+        <div class="col-mid">
+          <span class="tag current">Current</span>
+          <p class="summary">Ultra-build catch-up review after a long gap (last review Jun 17). Confirms Sörmlands 100 (Sep 12) stands. Taper starts today, 19 days out, extended from the season plan's planned 11-day taper after an Aug 15–23 load cluster assessed as at the edge of sustainable.</p>
+        </div>
+        <div class="col-link"><a href="plan.html">plan.html &rarr;</a></div>
+      </div>
+      <div class="row">
+        <div class="col-date"><span class="fdate">2026-08-24</span></div>
+        <div class="col-mid">
+          <span class="tag">WEEKLY REVIEW</span>
+          <p class="summary">Ultra-build catch-up review after a long gap (last review Jun 17). Confirms Sörmlands 100 (Sep 12) stands. Taper starts today, 19 days out, extended from the season plan's planned 11-day taper after an Aug 15–23 load cluster assessed as at the edge of sustainable.</p>
+        </div>
+        <div class="col-link"><a href="plan-2026-08-24-weekly-review.html">plan-2026-08-24-weekly-review.html &rarr;</a></div>
+      </div>
+</main>
+<footer>
+  Archive maintained by <code>.claude/skills/update-plan-visualization/SKILL.md</code>.<br>
+  Regenerated whenever a forward-plan-changing analysis lands in <code>analyses/</code>.
+</footer>
+</body>
+</html>
